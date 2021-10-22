@@ -13,7 +13,6 @@ export class Board {
             for (let x = 0; x < size; x++) {
                 this.cells[y][x] = new Cell(y, x);
             }
-
         }
 
         this.plantMines(mines);
@@ -23,7 +22,7 @@ export class Board {
     private plantMines(mines: number): void {
         for (let i = 0; i < mines; i++) {
             this.getCelltoMine().mine = true;
-        }
+        }        
     }
 
     private getCelltoMine(): Cell {
@@ -34,6 +33,7 @@ export class Board {
 
     private countMinesArround() {
         // recorro todo el tablero y en por cada posicion voy a preguntar por su area.
+        let totalMines = 0 ;
         for (let y = 0; y < this.size; y++) {
             for (let x = 0; x < this.size; x++) {
 
@@ -47,19 +47,32 @@ export class Board {
                 }
                 this.cells[y][x].areaMines = minesArround
 
-            }
+                if(this.cells[y][x].mine){ // calculo la cantidad de minas realmente colocadas, puede ser que el nro aleatorio sea igual
+                   totalMines ++;            
+                }
+
+                this.totalCells = (this.size * this.size) - (totalMines - 1)
+           }
 
         }
     }
 
-    private openAllCells():void {
+    private openAllCells(): void {
         for (let y = 0; y < this.size; y++) {
             for (let x = 0; x < this.size; x++) {
-                this.cells[y][x].status = 'open';
-                
+                if (this.cells[y][x].status === 'open')
+                    this.cells[y][x].status = 'clear';
             }
-            
         }
+    }
+
+    private openEmpyArea(cell: Cell):void{
+       for (const item of AREA) {
+           if( this.cells[cell.row + item[0]] && 
+            this.cells[cell.row + item[0]][cell.column + item[1]]){
+               this.checkCell(this.cells[cell.row + item[0]][cell.column + item[1]])
+           }
+    }
     }
 
     public checkCell(cell: Cell): 'gameover' | 'win' | null {
@@ -67,11 +80,16 @@ export class Board {
             return null;
         }
         if (cell.mine) {
-          //  this.openAllCells();
+            cell.status = 'clear';
+            this.openAllCells();
             return 'gameover'
         } else {
             cell.status = 'clear';
-            if (this.totalCells-- <= 1)
+            if (cell.areaMines == 0) {
+                this.openEmpyArea(cell)
+            }
+            this.totalCells--
+            if (this.totalCells <= 1)
                 return 'win';
         }
         return null;
