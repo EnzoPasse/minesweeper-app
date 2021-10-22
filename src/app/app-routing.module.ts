@@ -7,11 +7,11 @@ const routes: Routes = [
   {
     path:'',
     pathMatch:'full',
-    redirectTo:'/juego'
+    redirectTo:'/game'
   },
   
   {
-    path:'juego',
+    path:'game',
     component: GameComponent   
   }
 
