@@ -1,1 +1,11 @@
-<p>game works!</p>
+Board:
+<table>
+    <tr *ngFor="let row of board.cells; index as y">
+        <td *ngFor="let cell of row; index as x">
+            <div> ({{y}},{{x}})  </div>
+            <div>status: {{cell.status}}</div>
+            <div>mine: {{cell.mine}}</div>
+            <div>areaMine: {{cell.areaMines}} </div>
+        </td>
+    </tr>
+</table>
