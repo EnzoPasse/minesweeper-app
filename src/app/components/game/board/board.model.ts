@@ -1,3 +1,4 @@
+import { timeStamp } from "console";
 import { Cell } from "../cell/cell.model"
 
 export class Board {
@@ -7,9 +8,26 @@ export class Board {
         for (let y = 0; y < size; y++) {
             this.cells[y] = [];
             for (let x = 0; x < size; x++) {
-                this.cells[y][x] = new Cell();
+                this.cells[y][x] = new Cell(y,x);
             }
 
         }
+
+        this.plantMines(mines);
+    }
+
+    private plantMines(mines: number): void {
+        for (let i = 0; i < mines; i++) {
+            this.getCelltoMine().mine = true;
+        }
+
+    }
+
+    private getCelltoMine(): Cell {
+        const y = Math.floor(Math.random() * this.cells.length);
+        const x = Math.floor(Math.random() * this.cells[y].length);
+        return this.cells[y][x];
+
+
     }
 }
