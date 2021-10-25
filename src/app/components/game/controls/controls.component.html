@@ -3,9 +3,9 @@
         <mat-form-field >
             <mat-label>Dificultad:</mat-label>
             <mat-select [(ngModel)]="selectedValue" name="selectedValue">
-                <mat-option [value]="'easy'">Fácil</mat-option>
-                <mat-option [value]="'medium'">Medio</mat-option>
-                <mat-option [value]="'hard'">Dificil</mat-option>
+                <mat-option [value]="DificultEnum.easy">Fácil</mat-option>
+                <mat-option [value]="DificultEnum.medium">Medio</mat-option>
+                <mat-option [value]="DificultEnum.hard">Dificil</mat-option>
 
             </mat-select>
         </mat-form-field>
