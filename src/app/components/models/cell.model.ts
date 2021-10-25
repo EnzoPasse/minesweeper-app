@@ -1,6 +1,6 @@
 
 export class Cell {
-    status: 'open' | 'clear' | 'flag' = 'open';
+    status: 'close' | 'open' | 'flag' = 'close';
     mine = false;
     areaMines: number = 0
     constructor(public row: number, public column: number) { }

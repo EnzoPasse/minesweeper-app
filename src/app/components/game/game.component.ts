@@ -1,7 +1,7 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { Board } from './board/board.model';
-import { Cell } from './cell/cell.model';
+import { Board } from '../models/board.model';
+import { Cell } from '../models/cell.model';
 
 @Component({
   selector: 'app-game',
@@ -18,7 +18,7 @@ export class GameComponent {
 
 
   initBoard() {
-    this.board = new Board(4, 1);
+    this.board = new Board(10, 15);
   }
 
   checkCell(cell: Cell): void {

@@ -1,4 +1,4 @@
-import { AREA, Cell } from "../cell/cell.model"
+import { AREA, Cell } from "./cell.model"
 
 export class Board {
     cells: Cell[][] = [];
@@ -60,8 +60,8 @@ export class Board {
     private openAllCells(): void {
         for (let y = 0; y < this.size; y++) {
             for (let x = 0; x < this.size; x++) {
-                if (this.cells[y][x].status === 'open')
-                    this.cells[y][x].status = 'clear';
+                if (this.cells[y][x].status === 'close')
+                    this.cells[y][x].status = 'open';
             }
         }
     }
@@ -76,15 +76,15 @@ export class Board {
     }
 
     public checkCell(cell: Cell): 'gameover' | 'win' | null {
-        if (cell.status !== 'open') {
+        if (cell.status !== 'close') {
             return null;
         }
         if (cell.mine) {
-            cell.status = 'clear';
+            cell.status = 'open';
             this.openAllCells();
             return 'gameover'
         } else {
-            cell.status = 'clear';
+            cell.status = 'open';
             if (cell.areaMines == 0) {
                 this.openEmpyArea(cell)
             }
@@ -97,7 +97,7 @@ export class Board {
 
     public addFlag(cell: Cell): void {
         if (cell.status === 'flag') {
-            cell.status = 'open';
+            cell.status = 'close';
         } else {
             cell.status = 'flag';
         }

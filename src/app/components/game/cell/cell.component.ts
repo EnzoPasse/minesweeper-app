@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Cell } from '../../models/cell.model';
 
 @Component({
   selector: 'app-cell',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CellComponent implements OnInit {
 
+ @Input() cell!: Cell 
+
   constructor() { }
 
   ngOnInit(): void {
+ 
+ 
   }
 
 }
