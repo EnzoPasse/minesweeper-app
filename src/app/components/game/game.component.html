@@ -1,9 +1,9 @@
 <app-controls></app-controls>
  
-<div style="margin-top: 10px;">
-<mat-card>
+<div style="margin-top: 10px;" [ngStyle]="{'pointer-events': status ? 'visible' :  'none'}">
+<mat-card >
     <mat-card-content>
-        <table>
+        <table >
             <tr *ngFor="let row of board.cells; index as y">
                 <td *ngFor="let cell of row; index as x" (click)="checkCell(cell)"
                     (contextmenu)="$event.preventDefault();addFlag(cell)">
