@@ -5,11 +5,15 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './controls.component.html',
   styleUrls: ['./controls.component.css']
 })
-export class ControlsComponent implements OnInit {
+export class ControlsComponent {
+  
+  selectedValue = 'easy';
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  onClick() {
+    console.log('click');
+    console.log(this.selectedValue);
 
+  }
 }
