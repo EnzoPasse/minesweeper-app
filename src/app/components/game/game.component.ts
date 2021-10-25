@@ -6,6 +6,7 @@ import { Cell } from '../models/cell.model';
 import { takeUntil } from 'rxjs/operators';
 import { DificultEnum } from '../controls/controls.component';
 import { GameService } from 'src/app/services/game.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class GameComponent implements OnInit {
   status!: boolean
 
 
-  constructor(private game: GameService) { }
+  constructor(private game: GameService,
+    private snack: MatSnackBar) { }
 
 
 
@@ -58,10 +60,11 @@ export class GameComponent implements OnInit {
     const result = this.board.checkCell(cell);
     if (result === 'gameover') {
       this.game.changeStateGame(false);
-      alert('GAME OVER');
+      this.openSnackBar('GAME OVER!.. try again');
+      //alert('GAME OVER');
     } else if (result === 'win') {
       this.game.changeStateGame(false);
-      alert('YOU WIN');
+      this.openSnackBar('GANASTE!');
     }
   }
 
@@ -69,4 +72,12 @@ export class GameComponent implements OnInit {
     this.board.addFlag(cell);
   }
 
+ 
+  
+  openSnackBar(message: string):void{
+      this.snack.open(message,'X',
+        {duration:10000,
+        panelClass:'center'}
+        );   
+  }
 }
